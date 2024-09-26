@@ -8,7 +8,7 @@ import FAQSection from '../../components/landing/FAQSection';
 
 const LandingPage = () => {
     return (
-        <div className="bg-gray-50">
+        <div className="bg-[#f5f6ff]">
             <HeroSection />
             {/* <DocumentUploadSection /> */}
             <AppExplanationSection />

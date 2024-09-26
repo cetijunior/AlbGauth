@@ -5,7 +5,7 @@ import 'swiper/css'; // Import Swiper styles
 
 // Dummy images - Replace these with your actual images
 const baseImage = '/assets/images/step-by-step.png'; // Base phone-like canvas image
-const stepImages = ['/assets/images/step1.png', '/assets/images/step2.png']; // Ensure this is correctly defined
+const stepImages = ['/assets/images/step1.png', '/assets/images/step2.png']; // Images for Step-by-Step
 const explanationImage = '/assets/images/explanation.png'; // Image for Detailed Explanations
 const fastSolutionImage = '/assets/images/fast-solution.png'; // Image for Fast Solutions
 
@@ -53,10 +53,12 @@ const AppExplanationSection = () => {
     };
 
     return (
-        <section className="flex flex-col sm:flex-row items-center justify-evenly my-12 relative">
+        <section
+            id="app-explanation-section"
+            className="flex flex-col bg-white sm:flex-row items-center justify-evenly  relative">
             {/* Wrapper for phone-like canvas and images */}
-            <div className=" w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0">
-                <div className="relative sm:ml-64 ml-0 w-[260px] md:w-[300px] h-[500px] md:h-[600px] bg-white rounded-[40px] shadow-lg overflow-visible border-[14px] border-gray-800 z-10">
+            <div className="w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0">
+                <div className="relative sm:ml-64 ml-0 w-[260px] md:w-[300px] h-[500px] md:h-[600px] sm:mt-10 mt-20 bg-white rounded-[40px] shadow-lg overflow-visible border-[14px] border-gray-800 z-10">
                     <div className="absolute z-20 top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-[30px] bg-gray-800 rounded-b-[20px]"></div>
                     <div className="absolute z-20 bottom-2 left-1/2 transform -translate-x-1/2 w-1/3 h-[5px] bg-gray-800 rounded-full"></div>
                     {/* Base Image displayed full size */}
@@ -66,39 +68,28 @@ const AppExplanationSection = () => {
                         className="absolute inset-0 rounded-t-full w-full h-full object-top z-10"
                     />
 
+                    {/* Step-by-step Images for md and lg screens */}
                     {features[activeIndex].type === 'step' && (
                         <>
                             <img
                                 src={stepImages[0]}
                                 alt="Step 1"
-                                className="hidden md:block absolute top-20 -left-20 object-cover z-30"
-                                style={{
-                                    transform: 'translate(0%, 0%)',
-                                    opacity: 1,
-                                }}
+                                className="hidden md:block w-auto h-auto absolute top-24 left-[-120px] object-scale-down z-30"
                             />
                             <img
                                 src={stepImages[1]}
                                 alt="Step 2"
-                                className="hidden md:block absolute bottom-20 -right-24 object-top z-30"
-                                style={{
-                                    transform: 'translate(0%, 0%)',
-                                    opacity: 1,
-                                }}
+                                className="hidden md:block w-auto h-auto absolute bottom-20 right-[-120px] object-scale-down z-30"
                             />
                         </>
                     )}
 
-                    {/* Detailed Explanations Image */}
+                    {/* Detailed Explanations Image for md and lg screens */}
                     {features[activeIndex].type === 'explanation' && (
                         <img
                             src={explanationImage}
                             alt="Detailed Explanation"
-                            className="hidden md:block absolute top-[70%] left-24 object-cover z-30"
-                            style={{
-                                transform: 'translate(0%, -70%)',
-                                opacity: 1,
-                            }}
+                            className="hidden md:block w-auto h-auto absolute top-[70%] left-[140px] object-scale-down z-30 transform -translate-y-1/2"
                         />
                     )}
                 </div>
@@ -121,14 +112,6 @@ const AppExplanationSection = () => {
                     <Swiper className="block md:hidden w-full" spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }}>
                         <SwiperSlide>
                             <img src={explanationImage} alt="Detailed Explanation" className="w-auto h-auto object-contain" />
-                        </SwiperSlide>
-                    </Swiper>
-                )}
-
-                {activeIndex === 2 && (
-                    <Swiper className="block md:hidden" spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }}>
-                        <SwiperSlide>
-                            <img src={fastSolutionImage} alt="Fast Solution" className="w-auto h-auto object-contain" />
                         </SwiperSlide>
                     </Swiper>
                 )}

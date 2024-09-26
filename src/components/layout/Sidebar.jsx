@@ -13,13 +13,13 @@ import {
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
         <aside
-            className={`bg-gray-800 text-white h-full fixed top-24 left-0 shadow-md flex flex-col justify-between transition-all duration-500 ease-in-out transform ${isOpen ? 'w-52' : 'w-20'
+            className={`bg-white z-50 text-gray-800 h-full fixed top-24 left-0 shadow-md flex flex-col justify-between transition-all duration-500 px-10 ease-in-out transform ${isOpen ? 'w-48' : 'w-20'
                 } hidden md:flex`}
         >
             {/* Toggle Button at the Top */}
             <div className="flex items-center justify-center p-2">
                 <button
-                    className="text-gray-200 hover:text-gray-400 focus:outline-none"
+                    className="text-gray-800 hover:text-gray-600 focus:outline-none"
                     onClick={toggleSidebar}
                 >
                     {isOpen ? (
@@ -34,30 +34,47 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <div className="flex flex-col items-center justify-center flex-grow space-y-4">
                 <Link
                     to="/"
-                    className="block text-gray-200 hover:bg-gray-700 p-2 rounded flex items-center justify-center"
+                    className="block text-gray-800 hover:bg-gray-200 p-2 rounded flex flex-col items-center justify-center"
                 >
                     <HomeIcon className="h-6 w-6" />
-                    {isOpen && <span className="ml-2">Home</span>}
+                    {isOpen ? (
+                        <span className="ml-2">Home</span>
+                    ) : (
+                        <span className="text-xs mt-1">Home</span>
+                    )}
                 </Link>
                 <Link
                     to="/dashboard"
-                    className="block text-gray-200 hover:bg-gray-700 p-2 rounded flex items-center justify-center"
+                    className="block text-gray-800 hover:bg-gray-200 p-2 rounded flex flex-col items-center justify-center"
                 >
                     <AcademicCapIcon className="h-6 w-6" />
-                    {isOpen && <span className="ml-2">Dashboard</span>}
+                    {isOpen ? (
+                        <span className="ml-2">Dashboard</span>
+                    ) : (
+                        <span className="text-xs mt-1">Dashboard</span>
+                    )}
                 </Link>
                 <Link
                     to="/tutors"
-                    className="block text-gray-200 hover:bg-gray-700 p-2 rounded flex items-center justify-center"
+                    className="block text-gray-800 hover:bg-gray-200 p-2 rounded flex flex-col items-center justify-center"
                 >
                     <UsersIcon className="h-6 w-6" />
-                    {isOpen && <span className="ml-2">Tutors</span>}
+                    {isOpen ? (
+                        <span className="ml-2">Tutors</span>
+                    ) : (
+                        <span className="text-xs mt-1">Tutors</span>
+                    )}
                 </Link>
             </div>
 
-            {/* Placeholder Icon at the Bottom */}
-            <div className="flex items-center justify-center p-4">
-                <CogIcon className="h-6 w-6 mb-24 text-gray-400" />
+            {/* Settings Icon at the Bottom */}
+            <div className="flex flex-col items-center mb-28 justify-center">
+                <CogIcon className="h-6 w-6 mb-1 text-gray-600" />
+                {isOpen ? (
+                    <span className="text-sm">Settings</span>
+                ) : (
+                    <span className="text-xs mb-1">Settings</span>
+                )}
             </div>
         </aside>
     );

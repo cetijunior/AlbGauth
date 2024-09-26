@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
 
             {/* Settings Icon at the Bottom */}
-            <div className="flex flex-col items-center mb-24 justify-center">
+            <div className="flex flex-col items-center mb-28 justify-center">
                 <CogIcon className="h-6 w-6 mb-1 text-gray-600" />
                 {isOpen ? (
                     <span className="text-sm">Settings</span>

@@ -11,20 +11,20 @@ const testimonials = [
         text: "This app saved me countless times! The step-by-step guidance is amazing.",
         author: "Sarah J.",
         role: "High School Student",
-        rating: 5
+        rating: 5,
     },
     {
         text: "The best tutoring service with instant answers. Highly recommended!",
         author: "Michael L.",
         role: "College Freshman",
-        rating: 5
+        rating: 5,
     },
     {
         text: "I've improved my grades significantly since using this app. It's a game-changer!",
         author: "Emily R.",
         role: "Graduate Student",
-        rating: 4
-    }
+        rating: 4,
+    },
 ];
 
 const TestimonialCard = ({ text, author, role, rating }) => (
@@ -44,17 +44,19 @@ const TestimonialCard = ({ text, author, role, rating }) => (
 
 const TestimonialsSection = () => {
     return (
-        <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
-            <div className="max-w-6xl mx-auto">
-                <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-800">What Our Users Say</h2>
-                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className="pt-20 py-12 px-4 md:px-20 bg-gradient-to-b bg-white">
+            <div className="flex flex-col items-center justify-center mx-auto max-w-6xl">
+                <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-800">
+                    What Our Users Say
+                </h2>
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
                     {testimonials.map((testimonial, index) => (
                         <TestimonialCard key={index} {...testimonial} />
                     ))}
                 </div>
-                <div className="md:hidden">
+                <div className="md:hidden w-full">
                     <Swiper
-                        className='w-[300px]'
+                        className="w-full max-w-[300px]"
                         spaceBetween={20}
                         slidesPerView={1}
                         pagination={{ clickable: true }}

@@ -28,8 +28,8 @@ const HeroSection = () => {
             <div className="hidden sm:flex max-w-xl sm:max-w-full flex-wrap justify-center gap-4 mb-4">
                 {SubjectIcons.map((subject, index) => (
                     <button key={index} className="flex flex-col items-center text-center">
-                        <subject.icon className={`h-12 w-12 ${subject.color} mb-1`} />
-                        <span>{subject.label}</span>
+                        <subject.icon className={`h-6 w-6 ${subject.color} mb-1`} />
+                        <span className="text-xs">{subject.label}</span>
                     </button>
                 ))}
             </div>

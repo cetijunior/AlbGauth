@@ -13,7 +13,7 @@ import {
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
         <aside
-            className={`bg-white z-50 text-gray-800 h-full fixed top-24 left-0 shadow-md flex flex-col justify-between transition-all duration-500 ease-in-out transform ${isOpen ? 'w-52' : 'w-20'
+            className={`bg-white z-50 text-gray-800 h-full fixed top-24 left-0 shadow-md flex flex-col justify-between transition-all duration-500 px-10 ease-in-out transform ${isOpen ? 'w-48' : 'w-20'
                 } hidden md:flex`}
         >
             {/* Toggle Button at the Top */}
@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
 
             {/* Settings Icon at the Bottom */}
-            <div className="flex flex-col items-center mb-24 justify-center p-4">
+            <div className="flex flex-col items-center mb-24 justify-center">
                 <CogIcon className="h-6 w-6 mb-1 text-gray-600" />
                 {isOpen ? (
                     <span className="text-sm">Settings</span>

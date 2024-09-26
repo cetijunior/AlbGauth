@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer';
 import ChatButton from './components/layout/ChatButton';
 import LandingPage from './pages/landing/LandingPage';
 import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import FindTutorPage from './pages/tutoring/FindTutorPage';
 import LearningPathPage from './pages/learning/LearningPathPage';
@@ -34,24 +35,27 @@ function App() {
   return (
     <Router>
       <div className="flex">
+        {/* Sidebar for navigation */}
         <Sidebar
           isOpen={isSidebarOpen}
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
           className="hidden md:block"
         />
         <div
-          className={`flex flex-col flex-grow ${isSidebarOpen ? 'ml-0 md:ml-48 lg:ml-48' : 'lg:ml-16 md:ml-0 ml-0'
+          className={`flex flex-col flex-grow transition-all duration-500 ease-in-out ${isSidebarOpen ? 'ml-0 md:ml-48 lg:ml-48' : 'lg:ml-20 md:ml-0 ml-0'
             }`}
         >
+          {/* Navbar with input bar based on scroll */}
           <Navbar
             isSidebarOpen={isSidebarOpen}
             toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-            showInput={showInput} // Pass the updated showInput state
+            showInput={showInput}
           />
-          <main className="bg-gray-50 flex-grow p-4 mt-16">
+          <main className="bg-gray-50 flex-grow p-0 mt-16 transition-all duration-500 ease-in-out">
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/tutors" element={<FindTutorPage />} />
               <Route path="/learning-paths" element={<LearningPathPage />} />

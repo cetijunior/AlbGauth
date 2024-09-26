@@ -125,9 +125,8 @@
 
 
 
-![Hero Section] (<Screenshot 2024-09-26 015245.png>)
+![Hero](https://github.com/user-attachments/assets/e9d15028-b5af-49cc-b42b-80cc022af8a3)
 
 
+![Features](https://github.com/user-attachments/assets/c258c9b9-1f45-4479-a484-6574e245b046)
 
-
-![Features Section] (<Screenshot 2024-09-26 015301.png>)

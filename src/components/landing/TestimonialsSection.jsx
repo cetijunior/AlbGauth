@@ -1,18 +1,71 @@
 // src/components/landing/TestimonialsSection.jsx
 import React from 'react';
+import { StarIcon } from '@heroicons/react/24/solid';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+const testimonials = [
+    {
+        text: "This app saved me countless times! The step-by-step guidance is amazing.",
+        author: "Sarah J.",
+        role: "High School Student",
+        rating: 5
+    },
+    {
+        text: "The best tutoring service with instant answers. Highly recommended!",
+        author: "Michael L.",
+        role: "College Freshman",
+        rating: 5
+    },
+    {
+        text: "I've improved my grades significantly since using this app. It's a game-changer!",
+        author: "Emily R.",
+        role: "Graduate Student",
+        rating: 4
+    }
+];
+
+const TestimonialCard = ({ text, author, role, rating }) => (
+    <div className="bg-white rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-xl">
+        <div className="flex mb-4">
+            {[...Array(rating)].map((_, i) => (
+                <StarIcon key={i} className="h-5 w-5 text-yellow-400" />
+            ))}
+        </div>
+        <p className="text-gray-700 mb-4">"{text}"</p>
+        <div>
+            <h4 className="font-semibold">{author}</h4>
+            <p className="text-sm text-gray-500">{role}</p>
+        </div>
+    </div>
+);
 
 const TestimonialsSection = () => {
     return (
-        <section className="p-6 bg-gray-50">
-            <h2 className="text-4xl font-bold text-center mb-6">What Our Users Say</h2>
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="p-4 bg-white rounded shadow">
-                    <p className="italic text-gray-700">"This app saved me countless times! The step-by-step guidance is amazing."</p>
-                    <h4 className="mt-2 font-semibold">- Student A</h4>
+        <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
+            <div className="max-w-6xl mx-auto">
+                <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-800">What Our Users Say</h2>
+                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {testimonials.map((testimonial, index) => (
+                        <TestimonialCard key={index} {...testimonial} />
+                    ))}
                 </div>
-                <div className="p-4 bg-white rounded shadow">
-                    <p className="italic text-gray-700">"The best tutoring service with instant answers. Highly recommended!"</p>
-                    <h4 className="mt-2 font-semibold">- Student B</h4>
+                <div className="md:hidden">
+                    <Swiper
+                        className='w-[300px]'
+                        spaceBetween={20}
+                        slidesPerView={1}
+                        pagination={{ clickable: true }}
+                        modules={[Pagination]}
+                    >
+                        {testimonials.map((testimonial, index) => (
+                            <SwiperSlide key={index}>
+                                <TestimonialCard {...testimonial} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div>
         </section>

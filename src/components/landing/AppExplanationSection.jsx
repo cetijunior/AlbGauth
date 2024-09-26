@@ -53,7 +53,9 @@ const AppExplanationSection = () => {
     };
 
     return (
-        <section className="flex flex-col sm:flex-row items-center justify-evenly my-12 relative">
+        <section
+            id="app-explanation-section" // Add this ID
+            className="flex flex-col sm:flex-row items-center justify-evenly mt-26 relative">
             {/* Wrapper for phone-like canvas and images */}
             <div className=" w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0">
                 <div className="relative sm:ml-64 ml-0 w-[260px] md:w-[300px] h-[500px] md:h-[600px] bg-white rounded-[40px] shadow-lg overflow-visible border-[14px] border-gray-800 z-10">

@@ -130,3 +130,12 @@
 
 ![Features](https://github.com/user-attachments/assets/c258c9b9-1f45-4479-a484-6574e245b046)
 
+
+
+This is how you install all the necessery dependecies for the Python Backend files : 
+
+python -m venv .venv // root folder 
+
+.venv\Scripts\activate
+
+pip install -r backend/requirements.txt

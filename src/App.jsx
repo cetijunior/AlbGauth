@@ -11,6 +11,7 @@ import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import FindTutorPage from './pages/tutoring/FindTutorPage';
 import LearningPathPage from './pages/learning/LearningPathPage';
+import CalculatorPage from './pages/calculator/CalculatorPage'; // Add this import
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -59,6 +60,7 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/tutors" element={<FindTutorPage />} />
               <Route path="/learning-paths" element={<LearningPathPage />} />
+              <Route path="/calculator" element={<CalculatorPage />} /> {/* Update this line */}
             </Routes>
           </main>
           <Footer />

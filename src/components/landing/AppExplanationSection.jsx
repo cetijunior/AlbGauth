@@ -55,10 +55,10 @@ const AppExplanationSection = () => {
     return (
         <section
             id="app-explanation-section"
-            className="flex flex-col bg-white sm:flex-row items-center justify-evenly  relative">
+            className="flex flex-col bg-white sm:flex-row items-center justify-evenlyrelative">
             {/* Wrapper for phone-like canvas and images */}
             <div className="w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0">
-                <div className="relative sm:ml-64 ml-0 w-[260px] md:w-[300px] h-[500px] md:h-[600px] sm:mt-10 mt-20 bg-white rounded-[40px] shadow-lg overflow-visible border-[14px] border-gray-800 z-10">
+                <div className="relative lg:ml-44 md:ml-20 ml-0 w-[260px] md:w-[300px] h-[500px] md:h-[600px] mt-32 bg-white rounded-[40px] shadow-lg overflow-visible border-[14px] border-gray-800 z-10">
                     <div className="absolute z-20 top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-[30px] bg-gray-800 rounded-b-[20px]"></div>
                     <div className="absolute z-20 bottom-2 left-1/2 transform -translate-x-1/2 w-1/3 h-[5px] bg-gray-800 rounded-full"></div>
                     {/* Base Image displayed full size */}
@@ -95,30 +95,9 @@ const AppExplanationSection = () => {
                 </div>
             </div>
 
-            {/* Swiper for sm screens */}
-            <div className={`w-[300px] flex flex-col my-4 ${activeIndex === 2 ? 'h-0' : 'h-[320px]'}`}>
-                {activeIndex === 0 && (
-                    <Swiper className="block md:hidden w-full" spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }}>
-                        <SwiperSlide>
-                            <div className="flex flex-col justify-center items-center space-y-2">
-                                <img src={stepImages[0]} alt="Step 1" className="w-auto h-auto object-contain" />
-                                <img src={stepImages[1]} alt="Step 2" className="w-auto h-auto object-contain" />
-                            </div>
-                        </SwiperSlide>
-                    </Swiper>
-                )}
-
-                {activeIndex === 1 && (
-                    <Swiper className="block md:hidden w-full" spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }}>
-                        <SwiperSlide>
-                            <img src={explanationImage} alt="Detailed Explanation" className="w-auto h-auto object-contain" />
-                        </SwiperSlide>
-                    </Swiper>
-                )}
-            </div>
 
             {/* Feature sections on the right */}
-            <div className="w-auto sm:mr-32 mr-0 md:w-1/2 lg:w-2/5 flex flex-col space-y-4">
+            <div className="w-auto sm:ml-20 mr-0 md:w-1/2 lg:w-2/5 flex flex-col space-y-4">
                 {features.map((feature, index) => (
                     <button
                         key={index}

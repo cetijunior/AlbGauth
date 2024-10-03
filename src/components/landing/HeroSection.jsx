@@ -1,5 +1,5 @@
 // src/components/landing/HeroSection.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import QuestionInput from '../common/QuestionInput';
 import SubjectIcons from './SubjectIcons';
 import UploadSection from '../common/UploadSection';
@@ -9,22 +9,24 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 
 const HeroSection = () => {
+    const [cohereAnswer, setCohereAnswer] = useState('');
+
     return (
         <section
             id="hero-section"
             className="flex flex-col sm:-mb-0 -mb-32 items-center justify-center ml-0 min-h-screen text-gray-900 px-4 md:px-8 lg:px-12 space-y-4 py-6"
         >
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-                Ask Any Math Question
+                Zgjidhje.ai
             </h1>
 
-            {/* Pass the unique ID to the QuestionInput */}
-            <QuestionInput inputId="question-input" />
+            {/* Pass the unique ID to the QuestionInput and the setCohereAnswer function */}
+            <QuestionInput inputId="question-input" setCohereAnswer={setCohereAnswer} />
 
-            {/* File Upload Section */}
-            <UploadSection />
+            {/* File Upload Section - only show when there's no Cohere answer */}
+            {!cohereAnswer && <UploadSection />}
 
-            {/* Subject Icons Section */}
+            {/* Subject Icons Section 
             <div className="hidden sm:flex max-w-xl sm:max-w-full flex-wrap justify-center gap-4 mb-4">
                 {SubjectIcons.map((subject, index) => (
                     <button key={index} className="flex flex-col items-center text-center">
@@ -34,7 +36,9 @@ const HeroSection = () => {
                 ))}
             </div>
 
-            {/* Swiper for small screens */}
+            */}
+
+            {/* Swiper for small screens 
             <Swiper
                 className="sm:hidden w-[300px]"
                 spaceBetween={20}
@@ -56,6 +60,7 @@ const HeroSection = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+            */}
         </section>
     );
 };

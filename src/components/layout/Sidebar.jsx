@@ -7,13 +7,13 @@ import {
     HomeIcon,
     UsersIcon,
     AcademicCapIcon,
-    CogIcon,
+    DevicePhoneMobileIcon,
 } from '@heroicons/react/24/outline';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
         <aside
-            className={`bg-white z-50 text-gray-800 h-full fixed top-24 left-0 shadow-md flex flex-col justify-between transition-all duration-500 px-10 ease-in-out transform ${isOpen ? 'w-48' : 'w-20'
+            className={`bg-white z-50 text-gray-800 h-full fixed top-[85px] left-0 shadow-md flex flex-col justify-between transition-all duration-500 px-10 ease-in-out transform ${isOpen ? 'w-48' : 'w-20'
                 } hidden md:flex`}
         >
             {/* Toggle Button at the Top */}
@@ -66,14 +66,22 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     )}
                 </Link>
             </div>
-
-            {/* Settings Icon at the Bottom */}
-            <div className="flex flex-col items-center mb-28 justify-center">
-                <CogIcon className="h-6 w-6 mb-1 text-gray-600" />
+            {/* Mobile App Ad at the Bottom */}
+            <div className={`flex flex-col items-center justify-center mb-28 ${isOpen ? 'transition-all duration-300 ease-in-out' : ''}`}>
                 {isOpen ? (
-                    <span className="text-sm">Settings</span>
+                    <div className="bg-blue-100 p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col items-center justify-center">
+                        <DevicePhoneMobileIcon className="h-8 w-8 text-blue-600 mb-2" />
+                        <span className="text-sm font-medium text-blue-600 text-center">Get Mobile App</span>
+                    </div>
                 ) : (
-                    <span className="text-xs mb-1">Settings</span>
+                    <div className="relative group flex justify-center items-center">
+                        <span className="absolute left-1/2 bottom-full text-center transform -translate-x-1/2 mb-2 px-2 py-1 bg-blue-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            Mobile App
+                        </span>
+                        <div className="bg-blue-600 rounded-full p-2 cursor-pointer transform hover:scale-110 transition-transform duration-300">
+                            <DevicePhoneMobileIcon className="h-6 w-6 text-white" />
+                        </div>
+                    </div>
                 )}
             </div>
         </aside>

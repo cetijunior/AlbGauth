@@ -85,12 +85,12 @@ const ChatButton = () => {
             </button>
 
             {isOpen && (
-                <div className="fixed bottom-6 right-2 z-50 border border-gray-800 w-80 bg-white rounded-lg shadow-xl overflow-hidden"
+                <div className="fixed bottom-6 right-2 z-50 border border-gray-800 w-80 bg-white rounded-3xl shadow-xl overflow-hidden"
                     style={{ background: '#000000' }}
                 >
 
-                    <div className="relative z-10">
-                        <div className="flex justify-between items-center p-4 border-b">
+                    <div className="relative z-10 p-2">
+                        <div className="flex justify-between items-center p-4 border-b border-gray-700">
                             <h3 className="font-semibold text-white">Chat with us</h3>
                             <div className="flex items-center">
                                 <button onClick={handleClearChat} className="mr-2 text-gray-300 hover:text-white">

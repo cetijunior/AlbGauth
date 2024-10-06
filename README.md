@@ -125,8 +125,20 @@
 
 
 
-![Hero](https://github.com/user-attachments/assets/e9d15028-b5af-49cc-b42b-80cc022af8a3)
 
+![Screenshot 2024-10-06 181230](https://github.com/user-attachments/assets/2d7df780-b018-4c47-b153-36c1cbbdcef2)
+
+
+
+![Screenshot 2024-10-06 181253](https://github.com/user-attachments/assets/8ab2a7b1-5284-4961-b573-57f2b53f21ec)
+
+
+
+
+
+
+(Initial Design)
+![Hero](https://github.com/user-attachments/assets/e9d15028-b5af-49cc-b42b-80cc022af8a3)
 
 ![Features](https://github.com/user-attachments/assets/c258c9b9-1f45-4479-a484-6574e245b046)
 

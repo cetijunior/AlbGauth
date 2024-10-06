@@ -11,23 +11,22 @@ import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import FindTutorPage from './pages/tutoring/FindTutorPage';
 import LearningPathPage from './pages/learning/LearningPathPage';
-import CalculatorPage from './pages/calculator/CalculatorPage'; // Add this import
+import CalculatorPage from './pages/calculator/CalculatorPage';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [showInput, setShowInput] = useState(false);
+  const [showNavbarInput, setShowNavbarInput] = useState(false);
 
-  // Handle scroll to show/hide input in navbar
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   useEffect(() => {
     const handleScroll = () => {
-      const explanationSection = document.getElementById('question-input'); // Target AppExplanationSection
-      if (explanationSection) {
-        const explanationTop = explanationSection.getBoundingClientRect().top;
-        setShowInput(explanationTop < 50); // Adjust threshold if necessary
-      }
+      // Show navbar input when user scrolls past a certain point
+      setShowNavbarInput(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -36,23 +35,22 @@ function App() {
   return (
     <Router>
       <div className="flex">
-        {/* Sidebar for navigation */}
         <Sidebar
           isOpen={isSidebarOpen}
-          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          toggleSidebar={toggleSidebar}
           className="hidden md:block"
         />
         <div
-          className={`flex flex-col flex-grow transition-all duration-500 ease-in-out ${isSidebarOpen ? 'ml-0 md:ml-48 lg:ml-48' : 'lg:ml-20 md:ml-0 ml-0'
-            }`}
+          className={`flex flex-col flex-grow transition-all duration-500 ease-in-out
+            ${isSidebarOpen ? 'md:ml-52 lg:ml-52' : 'ml-0'}
+          `}
         >
-          {/* Navbar with input bar based on scroll */}
           <Navbar
             isSidebarOpen={isSidebarOpen}
-            toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-            showInput={showInput}
+            toggleSidebar={toggleSidebar}
+            showInput={showNavbarInput}
           />
-          <main className="bg-gray-50 flex-grow p-0 mt-16 transition-all duration-500 ease-in-out">
+          <main className={`bg-gray-50 flex-grow p-0 mt-16 transition-all duration-500 ease-in-out`}>
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -60,11 +58,13 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/tutors" element={<FindTutorPage />} />
               <Route path="/learning-paths" element={<LearningPathPage />} />
-              <Route path="/calculator" element={<CalculatorPage />} /> {/* Update this line */}
+              <Route path="/calculator" element={<CalculatorPage />} />
             </Routes>
           </main>
           <Footer />
-          <ChatButton />
+          <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50">
+            <ChatButton />
+          </div>
         </div>
       </div>
     </Router>

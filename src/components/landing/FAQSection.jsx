@@ -1,5 +1,7 @@
 // src/components/landing/FAQSection.jsx
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import ShootingStars from '../common/shootingStars';
 
 // Dummy Data for FAQs
 const faqs = [
@@ -33,82 +35,118 @@ const faqs = [
 const FAQSection = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // Autoplay the questions on larger screens
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prevIndex) => (prevIndex + 1) % faqs.length);
-        }, 3000); // Change every 3 seconds
+        }, 5000); // Change every 5 seconds
 
         return () => clearInterval(interval);
     }, []);
 
-    // Handle closing the active question on small screens
     const handleQuestionClick = (index) => {
         setActiveIndex(index === activeIndex ? null : index);
     };
 
     return (
-        <section className="py-12 px-4 md:px-8 bg-gradient-to-r from-white to-gray-50">
-            <div className="max-w-7xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-800">
+        <section className="py-16 px-4 md:px-8 relative bg-gradient-to-b bg-black">
+            <ShootingStars />
+            <div className="max-w-xl sm:max-w-7xl mx-auto relative z-10">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-4xl md:text-5xl font-bold text-center mb-12 text-white"
+                >
                     Frequently Asked Questions
-                </h2>
+                </motion.h2>
 
-                {/* For small screens, keep the original collapsible FAQ layout */}
-                <div className="md:hidden bg-white rounded-lg shadow-md p-6">
+                {/* For small screens */}
+                <div className="md:hidden space-y-4">
                     {faqs.map((faq, index) => (
-                        <div key={index} className="border-b border-gray-200 py-4">
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg shadow-md overflow-hidden"
+                        >
                             <button
-                                className="flex justify-between items-center w-full text-left"
+                                className="flex justify-between items-center w-full p-4 text-left text-white"
                                 onClick={() => handleQuestionClick(index)}
                             >
                                 <h3 className="text-lg font-semibold">{faq.question}</h3>
-                                {index === activeIndex ? '-' : '+'}
+                                <span className="text-2xl">{index === activeIndex ? '−' : '+'}</span>
                             </button>
-                            {index === activeIndex && (
-                                <div className="mt-2">
-                                    <p className="text-gray-600">{faq.answer}</p>
-                                </div>
-                            )}
-                        </div>
+                            <AnimatePresence>
+                                {index === activeIndex && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="px-4 pb-4"
+                                    >
+                                        <p className="text-gray-300">{faq.answer}</p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
                     ))}
                 </div>
 
-                {/* For medium and larger screens, show the autoplay effect with the rolodex style */}
-                <div className="hidden md:flex md:flex-row items-center justify-evenly mt-8">
+                {/* For medium and larger screens */}
+                <div className="hidden md:flex md:flex-row ml-20 items-center justify-center mt-8 space-x-8">
                     {/* Left Side: Questions List */}
-                    <div className="w-full md:w-1/2 flex flex-col items-start space-y-4 p-4 bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="w-1/2 space-y-4"
+                    >
                         {faqs.map((faq, index) => (
-                            <button
+                            <motion.button
                                 key={index}
-                                className={`p-4 text-left border-b border-gray-200 rounded-lg transition duration-300 w-full ${activeIndex === index
-                                    ? 'bg-blue-100 text-blue-800 font-bold'
-                                    : 'bg-gray-100 hover:bg-blue-50 text-gray-800'
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`p-4 text-left rounded-lg transition duration-300 w-full ${activeIndex === index
+                                    ? 'bg-blue-600 text-white shadow-lg'
+                                    : 'bg-white bg-opacity-10 text-gray-200 hover:bg-blue-500 hover:bg-opacity-20'
                                     }`}
                                 onClick={() => setActiveIndex(index)}
                             >
-                                <h3 className="text-lg">{faq.question}</h3>
-                            </button>
+                                <h3 className="text-lg font-semibold">{faq.question}</h3>
+                            </motion.button>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Right Side: Answers Display */}
-                    <div className="relative w-full md:w-1/2 lg:w-2/5 flex flex-col items-center justify-center -mt-20 space-y-3">
-                        {/* Current Answer */}
-                        <div className="w-full z-10 p-6 bg-white rounded-xl shadow-lg transform transition-all duration-500 hover:shadow-2xl">
-                            <p className="text-gray-800 text-lg">{faqs[activeIndex]?.answer}</p>
-                        </div>
-
-                        {/* Next Answer (Grayer and Smaller) */}
-                        <div
-                            className="absolute top-32 w-full p-4 bg-white rounded-lg shadow-md border border-gray-200 transform scale-90 transition-all duration-500"
-                            style={{ opacity: 0.5 }}
-                        >
-                            <p className="text-gray-600 text-base">
-                                {faqs[(activeIndex + 1) % faqs.length]?.answer}
-                            </p>
-                        </div>
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="w-1/2 relative h-80"
+                    >
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeIndex}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3 }}
+                                className="absolute inset-0 p-6 bg-white bg-opacity-10 backdrop-blur-md rounded-xl shadow-lg overflow-y-auto z-20"
+                            >
+                                <h3 className="text-2xl font-bold text-blue-400 mb-4">{faqs[activeIndex]?.question}</h3>
+                                <p className="text-gray-200 text-lg leading-relaxed">
+                                    {faqs[activeIndex]?.answer.split('\n').map((paragraph, index) => (
+                                        <React.Fragment key={index}>
+                                            {paragraph}
+                                            <br /><br />
+                                        </React.Fragment>
+                                    ))}
+                                </p>
+                            </motion.div>
+                        </AnimatePresence>
+                    </motion.div>
                 </div>
             </div>
         </section>

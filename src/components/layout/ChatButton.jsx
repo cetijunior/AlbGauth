@@ -1,7 +1,8 @@
 // src/components/layout/ChatButton.jsx
 import React, { useState, useEffect } from 'react';
-import { ChatBubbleLeftRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftRightIcon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
+import BgUi from '../common/BgUI';
 
 const ChatButton = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -77,75 +78,80 @@ const ChatButton = () => {
     return (
         <>
             <button
-                className="fixed z-50 bottom-6 right-6 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition flex items-center"
+                className="fixed z-50 bottom-6 right-6 bg-violet-700 text-white p-3 rounded-full shadow-lg hover:bg-violet-500 transition flex items-center"
                 onClick={() => setIsOpen(true)}
             >
                 <ChatBubbleLeftRightIcon className="h-10 w-10" />
             </button>
 
             {isOpen && (
-                <div className="fixed z-50 bottom-20 right-6 w-80 bg-white rounded-lg shadow-xl">
-                    <div className="flex justify-between items-center p-4 border-b">
-                        <h3 className="font-semibold">Chat with us</h3>
-                        <div className="flex items-center">
-                            <button onClick={handleClearChat} className="mr-2 text-sm text-gray-500 hover:text-gray-700">
-                                Clear Chat
-                            </button>
-                            <button onClick={() => setIsOpen(false)}>
-                                <XMarkIcon className="h-6 w-6" />
-                            </button>
+                <div className="fixed bottom-6 right-2 z-50 border border-gray-800 w-80 bg-white rounded-lg shadow-xl overflow-hidden"
+                    style={{ background: '#000000' }}
+                >
+
+                    <div className="relative z-10">
+                        <div className="flex justify-between items-center p-4 border-b">
+                            <h3 className="font-semibold text-white">Chat with us</h3>
+                            <div className="flex items-center">
+                                <button onClick={handleClearChat} className="mr-2 text-gray-300 hover:text-white">
+                                    <TrashIcon className="h-5 w-5" />
+                                </button>
+                                <button onClick={() => setIsOpen(false)}>
+                                    <XMarkIcon className="h-6 w-6 text-white" />
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="h-80 overflow-y-auto p-4">
-                        {messages.length === 0 && (
-                            <div className="mb-4">
-                                <p className="text-gray-600 mb-2">You can ask:</p>
-                                {predefinedQuestions.map(question => (
-                                    <button
-                                        key={question.id}
-                                        onClick={() => handleQuestionClick(question.id)}
-                                        className="block w-full text-left mb-2 px-3 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200 transition"
-                                    >
-                                        {question.text}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                        {messages.map((message, index) => (
-                            <div key={index} className={`mb-2 ${message.type === 'user' ? 'text-right' : 'text-left'}`}>
-                                <span className={`inline-block p-2 rounded-lg ${message.type === 'user' ? 'bg-blue-100' : 'bg-gray-100'}`}>
-                                    {message.content}
-                                </span>
-                            </div>
-                        ))}
-                        {isLoading && <div className="text-center">Loading...</div>}
-                        {error && <div className="text-red-500">{error}</div>}
-                        {messages.length > 0 && (
-                            <div className="mt-4">
-                                <p className="text-gray-600 mb-2">You can also ask:</p>
-                                {predefinedQuestions.map(question => (
-                                    <button
-                                        key={question.id}
-                                        onClick={() => handleQuestionClick(question.id)}
-                                        className="block w-full text-left mb-2 px-3 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200 transition"
-                                    >
-                                        {question.text}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                    <div className="p-4 border-t">
-                        <form onSubmit={handleSubmit} className="flex">
-                            <input
-                                type="text"
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="Type your message..."
-                                className="flex-grow p-2 border rounded-l-lg"
-                            />
-                            <button type="submit" className="bg-blue-500 text-white p-2 rounded-r-lg">Send</button>
-                        </form>
+                        <div className="h-80 overflow-y-auto p-4">
+                            {messages.length === 0 && (
+                                <div className="mb-4">
+                                    <p className="text-gray-300 mb-2">You can ask:</p>
+                                    {predefinedQuestions.map(question => (
+                                        <button
+                                            key={question.id}
+                                            onClick={() => handleQuestionClick(question.id)}
+                                            className="block w-full text-left mb-2 px-3 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition text-white"
+                                        >
+                                            {question.text}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                            {messages.map((message, index) => (
+                                <div key={index} className={`mb-2 ${message.type === 'user' ? 'text-right' : 'text-left'}`}>
+                                    <span className={`inline-block p-2 rounded-lg ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
+                                        {message.content}
+                                    </span>
+                                </div>
+                            ))}
+                            {isLoading && <div className="text-center text-white">Loading...</div>}
+                            {error && <div className="text-red-400">{error}</div>}
+                            {messages.length > 0 && (
+                                <div className="mt-4">
+                                    <p className="text-gray-300 mb-2">You can also ask:</p>
+                                    {predefinedQuestions.map(question => (
+                                        <button
+                                            key={question.id}
+                                            onClick={() => handleQuestionClick(question.id)}
+                                            className="block w-full text-left mb-2 px-3 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition text-white"
+                                        >
+                                            {question.text}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <div className="p-4 border-t border-gray-700">
+                            <form onSubmit={handleSubmit} className="flex">
+                                <input
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    placeholder="Type your message..."
+                                    className="flex-grow p-2 border rounded-l-lg bg-gray-800 text-white border-gray-700"
+                                />
+                                <button type="submit" className="bg-blue-600 text-white p-2 rounded-r-lg">Send</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}

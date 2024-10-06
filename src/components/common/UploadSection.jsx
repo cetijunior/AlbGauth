@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DocumentArrowUpIcon, XCircleIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import Tesseract from 'tesseract.js';
+import { ArrowUpTrayIcon, DocumentIcon, PhotoIcon } from '@heroicons/react/24/solid';
 
 const UploadSection = () => {
     const [recognizedText, setRecognizedText] = useState('');
@@ -11,7 +12,6 @@ const UploadSection = () => {
     const [isRecognizing, setIsRecognizing] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [editableText, setEditableText] = useState('');
-    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
@@ -38,15 +38,9 @@ const UploadSection = () => {
         setEditableText('');
         setPreviewUrl(null);
         setCohereAnswer('');
-        setShowConfirmation(false);
-    };
-
-    const handleConfirmText = () => {
-        setShowConfirmation(true);
     };
 
     const handleProcessText = async () => {
-        setShowConfirmation(false);
         await getAnswerFromCohere(editableText);
     };
 
@@ -91,24 +85,30 @@ const UploadSection = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto mb-8 p-6 bg-white rounded-xl shadow-lg">
+        <div className="flex flex-col items-center justify-center lg:w-2/4 max-w-4xl mx-auto mb-8 rounded-3xl shadow-lg bg-gray-900 text-white">
             {!uploadedFile ? (
                 <label
                     htmlFor="fileUpload"
-                    className="flex flex-col w-full items-center justify-center h-64 border-2 border-blue-300 border-dashed rounded-xl cursor-pointer bg-blue-50 hover:bg-blue-100 transition duration-300 ease-in-out">
-                    <div className="flex flex-col items-center justify-center space-y-4">
-                        <DocumentArrowUpIcon className="w-16 h-16 text-blue-500" />
+                    className="flex flex-col w-full items-center justify-center h-64 border-2 border-gray-600 border-dashed rounded-xl cursor-pointer hover:border-gray-400 transition duration-300 ease-in-out group">
+                    <div className="flex flex-col justify-center items-center space-x-2 mb-4">
+                        <div className='flex flex-row justify-center items-center space-x-2'>
+                            <PhotoIcon className="h-8 w-8 text-red-400" />
+                            <DocumentIcon className="h-8 w-8 text-blue-400" />
+                            <ArrowUpTrayIcon className="h-8 w-8 text-green-400" />
+                        </div>
                         <div className="text-center">
-                            <p className="text-lg font-semibold text-blue-600">
-                                Click to upload or drag and drop
+                            <p className="text-center text-gray-400 mb-2 group-hover:text-gray-200 transition-colors duration-300">
+                                Upload <span className="font-semibold hover:underline hover:decoration-red-500">Image</span> or <span className="font-semibold hover:underline hover:decoration-red-500">PDF</span> to solve questions in it
                             </p>
-                            <p className="text-sm text-blue-400">PDF, PNG, JPG or GIF (MAX. 800x400px)</p>
+                            <p className="text-center text-gray-500 text-sm group-hover:text-gray-400 transition-colors duration-300">
+                                Ctrl <span className="inline-block border border-gray-600 rounded px-1">⌘</span> + <span className="inline-block border border-gray-600 rounded px-1">V</span> to paste
+                            </p>
                         </div>
                     </div>
                     <input type="file" id="fileUpload" className="hidden" onChange={handleFileUpload} accept="image/*,.pdf" />
                 </label>
             ) : (
-                <div className="w-full p-6 bg-gray-50 rounded-xl shadow-inner">
+                <div className="w-full p-6 bg-gray-800 rounded-xl shadow-inner">
                     <div className="flex justify-between items-center mb-4">
                         <div className="flex space-x-4 text-sm">
                             <p><span className="font-bold">Name:</span> {uploadedFile.name}</p>
@@ -116,15 +116,15 @@ const UploadSection = () => {
                             <p><span className="font-bold">Size:</span> {(uploadedFile.size / 1024).toFixed(2)} KB</p>
                         </div>
                         <div className="flex space-x-2">
-                            <button onClick={() => document.getElementById('fileUpload').click()} className="p-2 bg-blue-100 rounded-full text-blue-600 hover:bg-blue-200 transition duration-300">
+                            <button onClick={() => document.getElementById('fileUpload').click()} className="p-2 bg-blue-900 rounded-full text-blue-300 hover:bg-blue-800 transition duration-300">
                                 <ArrowPathIcon className="w-6 h-6" />
                             </button>
-                            <button onClick={handleRemoveFile} className="p-2 bg-red-100 rounded-full text-red-600 hover:bg-red-200 transition duration-300">
+                            <button onClick={handleRemoveFile} className="p-2 bg-red-900 rounded-full text-red-300 hover:bg-red-800 transition duration-300">
                                 <XCircleIcon className="w-6 h-6" />
                             </button>
                         </div>
                     </div>
-                    {isUploading && <p className="text-sm text-gray-600">Uploading file...</p>}
+                    {isUploading && <p className="text-sm text-gray-400">Uploading file...</p>}
                     {previewUrl && (
                         <div className="mt-4">
                             <h4 className="text-lg font-semibold mb-2">Preview:</h4>
@@ -137,49 +137,29 @@ const UploadSection = () => {
                     )}
                 </div>
             )}
-            {isRecognizing && <p className="mt-4 text-sm text-blue-600">Recognizing text...</p>}
+            {isRecognizing && <p className="mt-4 text-sm text-blue-400">Recognizing text...</p>}
             {recognizedText && (
-                <div className="mt-6 p-6 bg-white rounded-xl shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-3 text-gray-800">Recognized Text:</h3>
+                <div className="mt-6 p-6 bg-gray-800 rounded-xl shadow-md w-full">
+                    <h3 className="text-xl font-bold mb-3 text-gray-200">Recognized Text:</h3>
                     <textarea
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        className="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
                         rows="5"
                         value={editableText}
                         onChange={(e) => setEditableText(e.target.value)}
                     />
                     <button
-                        className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                        onClick={handleConfirmText}
+                        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleProcessText}
                     >
-                        Confirm Text
+                        Process Text
                     </button>
                 </div>
             )}
-            {showConfirmation && (
-                <div className="mt-6 p-6 bg-yellow-50 rounded-xl shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-3 text-yellow-800">Confirm Processing</h3>
-                    <p className="text-yellow-700 mb-4">Are you sure you want to process this text with AI?</p>
-                    <div className="flex space-x-4">
-                        <button
-                            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                            onClick={handleProcessText}
-                        >
-                            Yes, Process
-                        </button>
-                        <button
-                            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => setShowConfirmation(false)}
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            )}
-            {isProcessing && <p className="mt-4 text-sm text-blue-600">Processing with AI...</p>}
+            {isProcessing && <p className="mt-4 text-sm text-blue-400">Processing with AI...</p>}
             {cohereAnswer && (
-                <div className="mt-6 p-6 bg-blue-50 rounded-xl shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-3 text-blue-800">AI Analysis:</h3>
-                    <p className="text-blue-700">{cohereAnswer}</p>
+                <div className="mt-6 p-6 bg-blue-900 rounded-xl shadow-md w-full">
+                    <h3 className="text-xl font-bold mb-3 text-blue-200">AI Analysis:</h3>
+                    <p className="text-blue-300">{cohereAnswer}</p>
                 </div>
             )}
             <input type="file" id="fileUpload" className="hidden" onChange={handleFileUpload} accept="image/*,.pdf" />

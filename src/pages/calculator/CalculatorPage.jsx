@@ -6,6 +6,7 @@ import Latex from 'react-latex';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadSection from '../../components/common/UploadSection';
+import ShootingStars from '../../components/common/shootingStars';
 
 //Fix the advanced buttons functioanlity, improve design and add ocr and llms to manage complex math problems
 
@@ -239,15 +240,16 @@ const CalculatorPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-4 sm:p-8 flex flex-col items-center">
-            <div className="w-full mt-24 max-w-4xl">
-                <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center">Zgjidhje.AI</h1>
-                <p className="text-gray-600 mb-8 text-center">Instant, step-by-step solutions for any question or subject, exactly when you need them.</p>
+        <div className="min-h-screen bg-black p-4 sm:p-8 flex flex-col items-center relative">
+            <ShootingStars />
+            <div className="w-full mt-24 max-w-4xl relative z-10">
+                <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center text-white">Zgjidhje.AI</h1>
+                <p className="text-gray-300 mb-8 text-center">Instant, step-by-step solutions for any question or subject, exactly when you need them.</p>
 
-                <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+                <div className="bg-gray-900 bg-opacity-80 rounded-lg shadow-lg p-4 sm:p-6 backdrop-filter backdrop-blur-lg">
                     <div className="flex justify-end mb-4">
                         <button
-                            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                             onClick={handleClear}
                         >
                             <TrashIcon className="h-5 w-5" />
@@ -256,13 +258,13 @@ const CalculatorPage = () => {
 
                     <div className="flex flex-wrap justify-center space-x-2 sm:space-x-4 mb-4">
                         <button
-                            className={`px-4 py-2 rounded-full mb-2 sm:mb-0 ${mode === 'Calculator' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100'}`}
+                            className={`px-4 py-2 rounded-full mb-2 sm:mb-0 ${mode === 'Calculator' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                             onClick={() => setMode('Calculator')}
                         >
                             Calculator
                         </button>
                         <button
-                            className={`px-4 py-2 rounded-full mb-2 sm:mb-0 ${mode === 'Word problem' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100'}`}
+                            className={`px-4 py-2 rounded-full mb-2 sm:mb-0 ${mode === 'Word problem' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                             onClick={() => setMode('Word problem')}
                         >
                             Word problem
@@ -273,7 +275,7 @@ const CalculatorPage = () => {
                         <>
                             <div className="flex flex-wrap justify-center space-x-2 mb-4">
                                 <button
-                                    className={`px-3 py-1 rounded mb-2 ${buttonSet === 'Basic' ? 'bg-pink-500 text-white' : 'bg-gray-200'}`}
+                                    className={`px-3 py-1 rounded mb-2 ${buttonSet === 'Basic' ? 'bg-pink-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                                     onClick={() => setButtonSet('Basic')}
                                 >
                                     Basic
@@ -281,7 +283,7 @@ const CalculatorPage = () => {
                                 {['Functions', 'ABC', 'Equations'].map((set) => (
                                     <button
                                         key={set}
-                                        className={`px-3 py-1 rounded flex items-center mb-2 ${buttonSet === set ? 'bg-pink-500 text-white' : 'bg-gray-200'}`}
+                                        className={`px-3 py-1 rounded flex items-center mb-2 ${buttonSet === set ? 'bg-pink-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                                         onClick={() => toggleDropdown(set)}
                                     >
                                         {set}
@@ -295,11 +297,11 @@ const CalculatorPage = () => {
                                     type="text"
                                     value={input}
                                     onChange={handleInputChange}
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
+                                    className="w-full p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
                                     placeholder="Enter your math expression"
                                 />
                                 <button
-                                    className="ml-2 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                                    className="ml-2 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
                                     onClick={handleBackspace}
                                 >
                                     <BackspaceIcon className="h-5 w-5" />
@@ -311,7 +313,7 @@ const CalculatorPage = () => {
                                     {getButtonSet().map((btn, index) => (
                                         <button
                                             key={index}
-                                            className={`bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-1 w-20 rounded ${buttonSet === 'ABC' ? 'font-serif' : ''}`}
+                                            className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 w-20 rounded ${buttonSet === 'ABC' ? 'font-serif' : ''}`}
                                             onClick={() => handleButtonClick(typeof btn === 'object' ? btn.label : btn)}
                                         >
                                             {typeof btn === 'object' ? (
@@ -327,8 +329,8 @@ const CalculatorPage = () => {
                                     <button
                                         key={index}
                                         className={`font-semibold py-2 px-4 rounded ${['+', '-', '*', '/', '='].includes(btn)
-                                            ? 'bg-orange-500 hover:bg-orange-600 text-white'
-                                            : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
+                                            ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                                            : 'bg-gray-700 hover:bg-gray-600 text-white'
                                             }`}
                                         onClick={() => handleButtonClick(btn)}
                                     >
@@ -338,7 +340,7 @@ const CalculatorPage = () => {
                             </div>
 
                             <button
-                                className="mt-4 bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded w-full"
+                                className="mt-4 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded w-full"
                                 onClick={handleSolve}
                                 disabled={loading}
                             >
@@ -349,7 +351,7 @@ const CalculatorPage = () => {
                         <div className="mt-4">
                             <UploadSection onFileUpload={handleFileUpload} />
                             <button
-                                className="mt-4 bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded w-full"
+                                className="mt-4 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded w-full"
                                 onClick={handleSolve}
                                 disabled={loading}
                             >
@@ -360,22 +362,22 @@ const CalculatorPage = () => {
 
                     {result && (
                         <div className="mt-6">
-                            <h2 className="text-xl font-bold mb-2">Result:</h2>
-                            <Latex>{`${result}`}</Latex>
+                            <h2 className="text-xl font-bold mb-2 text-white">Result:</h2>
+                            <Latex className="text-white">{`${result}`}</Latex>
                         </div>
                     )}
 
                     {steps.length > 0 && (
-                        <div className="mt-8 bg-white shadow-md rounded-lg p-6">
-                            <h2 className="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Solution Steps</h2>
+                        <div className="mt-8 bg-gray-800 shadow-lg rounded-lg p-6">
+                            <h2 className="text-2xl font-bold mb-4 text-white border-b border-gray-700 pb-2">Solution Steps</h2>
                             <ol className="space-y-4">
                                 {steps.map((step, index) => (
                                     <li key={index} className="flex items-start">
-                                        <span className="flex-shrink-0 w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center mr-3 font-bold">
+                                        <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center mr-3 font-bold">
                                             {index + 1}
                                         </span>
-                                        <div className="bg-gray-100 rounded-lg p-4 flex-grow shadow-sm">
-                                            <Latex className="text-gray-800">{`${step}`}</Latex>
+                                        <div className="bg-gray-700 rounded-lg p-4 flex-grow shadow-sm">
+                                            <Latex className="text-white">{`${step}`}</Latex>
                                         </div>
                                     </li>
                                 ))}

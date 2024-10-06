@@ -62,25 +62,25 @@ const QuestionInput = ({ inputId }) => {
         <div className="w-full max-w-lg">
             <div
                 id={inputId}
-                className="flex items-center w-full border border-gray-300 hover:border-gray-800 rounded-2xl shadow-sm p-2 mb-4"
+                className="flex items-center w-full border border-gray-700 hover:border-gray-500 rounded-2xl shadow-sm p-2 mb-4 bg-gray-900"
             >
                 <input
                     type="text"
                     placeholder="Shkruani pyetjen tuaj..."
-                    className="flex-grow p-2 bg-transparent focus:outline-none"
+                    className="flex-grow p-2 bg-transparent focus:outline-none text-white"
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                 />
                 <div className="flex items-center">
                     <button
-                        className="text-gray-500 hover:text-gray-600"
+                        className="text-gray-400 hover:text-gray-200"
                         onClick={handleCalculatorClick}
                     >
                         <CalculatorIcon className="h-6 w-6" />
                     </button>
-                    <div className="h-6 w-px bg-gray-300 mx-2"></div>
+                    <div className="h-6 w-px bg-gray-700 mx-2"></div>
                     <button
-                        className="text-blue-500 hover:text-blue-600"
+                        className="text-gray-400 hover:text-blue-300"
                         onClick={handleQuestionSubmit}
                     >
                         <ArrowRightIcon className="h-6 w-6" />
@@ -89,36 +89,36 @@ const QuestionInput = ({ inputId }) => {
             </div>
             {isLoading && (
                 <div className="mt-4 text-center">
-                    <p>Duke përpunuar pyetjen tuaj...</p>
+                    <p className="text-gray-300">Duke përpunuar pyetjen tuaj...</p>
                 </div>
             )}
             {cohereAnswer && !isLoading && (
-                <div className="mt-4 p-4 bg-white rounded-lg shadow-md">
+                <div className="mt-4 p-4 bg-gray-900 rounded-lg shadow-md border border-gray-700">
                     <div className="flex flex-col space-y-4">
                         <div className="flex items-start justify-end">
-                            <div className="bg-white rounded-lg p-3 shadow-sm max-w-[80%]">
-                                <p className="text-sm text-gray-700">{question}</p>
+                            <div className="bg-gray-800 rounded-lg p-3 shadow-sm max-w-[80%]">
+                                <p className="text-sm text-gray-300">{question}</p>
                             </div>
-                            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center ml-2 flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                            <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center ml-2 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
                                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                                 </svg>
                             </div>
                         </div>
                         <div className="flex items-start">
-                            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+                            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                                     <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                                 </svg>
                             </div>
-                            <div className="bg-blue-500 rounded-lg p-3 shadow-sm max-w-[80%]">
+                            <div className="bg-blue-600 rounded-lg p-3 shadow-sm max-w-[80%]">
                                 <p className="text-sm text-white">{cohereAnswer}</p>
                             </div>
                         </div>
                         <div className="flex justify-end">
                             <button
-                                className="text-red-500 hover:text-red-600"
+                                className="text-red-500 hover:text-red-400"
                                 onClick={handleRemoveAnswer}
                             >
                                 <TrashIcon className="h-6 w-6" />

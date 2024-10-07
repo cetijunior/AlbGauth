@@ -1,7 +1,7 @@
 // src/components/landing/AppExplanationSection.jsx
 import React, { useState } from 'react';
 import ShootingStars from '../common/shootingStars';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const features = [
     {
@@ -59,19 +59,33 @@ const AppExplanationSection = () => {
                             </motion.button>
                         ))}
                     </div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="w-full lg:w-1/2 p-6 md:p-8 bg-gray-800 bg-opacity-50 rounded-lg shadow-xl backdrop-blur-sm"
-                    >
-                        <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-white">
-                            {features[activeFeature].title}
-                        </h3>
-                        <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-                            {features[activeFeature].highlight}
-                        </p>
-                    </motion.div>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeFeature}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.5 }}
+                            className="w-full lg:w-1/2 p-6 md:p-8 bg-gray-800 bg-opacity-50 rounded-lg shadow-xl backdrop-blur-sm"
+                        >
+                            <motion.h3
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.3 }}
+                                className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-purple-600"
+                            >
+                                {features[activeFeature].title}
+                            </motion.h3>
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4, duration: 0.3 }}
+                                className="text-gray-300 text-base md:text-lg leading-relaxed"
+                            >
+                                {features[activeFeature].highlight}
+                            </motion.p>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
         </section>

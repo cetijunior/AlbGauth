@@ -1,8 +1,9 @@
 // src/components/layout/ChatButton.jsx
 import React, { useState, useEffect } from 'react';
-import { ChatBubbleLeftRightIcon, XMarkIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftRightIcon, XMarkIcon, TrashIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import BgUi from '../common/BgUI';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ChatButton = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -77,84 +78,138 @@ const ChatButton = () => {
 
     return (
         <>
-            <button
-                className="fixed z-50 bottom-6 right-6 bg-violet-700 text-white p-3 rounded-full shadow-lg hover:bg-violet-500 transition flex items-center"
+            <motion.button
+                className="fixed z-50 bottom-6 right-6 bg-violet-700 text-white p-3 rounded-full shadow-lg hover:bg-[#cb6ce6] transition flex items-center"
                 onClick={() => setIsOpen(true)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
             >
                 <ChatBubbleLeftRightIcon className="h-10 w-10" />
-            </button>
+            </motion.button>
 
-            {isOpen && (
-                <div className="fixed bottom-6 right-2 z-50 border border-gray-800 w-80 bg-white rounded-3xl shadow-xl overflow-hidden"
-                    style={{ background: '#000000' }}
-                >
-
-                    <div className="relative z-10 p-2">
-                        <div className="flex justify-between items-center p-4 border-b border-gray-700">
-                            <h3 className="font-semibold text-white">Chat with us</h3>
-                            <div className="flex items-center">
-                                <button onClick={handleClearChat} className="mr-2 text-gray-300 hover:text-white">
-                                    <TrashIcon className="h-5 w-5" />
-                                </button>
-                                <button onClick={() => setIsOpen(false)}>
-                                    <XMarkIcon className="h-6 w-6 text-white" />
-                                </button>
-                            </div>
-                        </div>
-                        <div className="h-80 overflow-y-auto p-4">
-                            {messages.length === 0 && (
-                                <div className="mb-4">
-                                    <p className="text-gray-300 mb-2">You can ask:</p>
-                                    {predefinedQuestions.map(question => (
-                                        <button
-                                            key={question.id}
-                                            onClick={() => handleQuestionClick(question.id)}
-                                            className="block w-full text-left mb-2 px-3 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition text-white"
-                                        >
-                                            {question.text}
-                                        </button>
-                                    ))}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 50 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="fixed bottom-6 right-2 z-50 border border-gray-800 w-80 bg-white rounded-3xl shadow-xl overflow-hidden"
+                        style={{ background: '#000000' }}
+                    >
+                        <div className="relative z-10 p-2">
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="flex justify-between items-center p-4 border-b border-gray-700"
+                            >
+                                <h3 className="font-semibold text-white">Chat with us</h3>
+                                <div className="flex items-center">
+                                    <motion.button
+                                        onClick={handleClearChat}
+                                        className="mr-2 text-gray-300 hover:text-white"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    >
+                                        <TrashIcon className="h-5 w-5" />
+                                    </motion.button>
+                                    <motion.button
+                                        onClick={() => setIsOpen(false)}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    >
+                                        <XMarkIcon className="h-6 w-6 text-white" />
+                                    </motion.button>
                                 </div>
-                            )}
-                            {messages.map((message, index) => (
-                                <div key={index} className={`mb-2 ${message.type === 'user' ? 'text-right' : 'text-left'}`}>
-                                    <span className={`inline-block p-2 rounded-lg ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
-                                        {message.content}
-                                    </span>
-                                </div>
-                            ))}
-                            {isLoading && <div className="text-center text-white">Loading...</div>}
-                            {error && <div className="text-red-400">{error}</div>}
-                            {messages.length > 0 && (
-                                <div className="mt-4">
-                                    <p className="text-gray-300 mb-2">You can also ask:</p>
-                                    {predefinedQuestions.map(question => (
-                                        <button
-                                            key={question.id}
-                                            onClick={() => handleQuestionClick(question.id)}
-                                            className="block w-full text-left mb-2 px-3 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition text-white"
-                                        >
-                                            {question.text}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
+                            </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="h-80 overflow-y-auto p-4"
+                            >
+                                {messages.length === 0 && (
+                                    <div className="mb-4">
+                                        <p className="text-gray-300 mb-2">You can ask:</p>
+                                        {predefinedQuestions.map(question => (
+                                            <motion.button
+                                                key={question.id}
+                                                onClick={() => handleQuestionClick(question.id)}
+                                                className="block w-full text-left mb-2 px-3 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition text-white"
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                            >
+                                                {question.text}
+                                            </motion.button>
+                                        ))}
+                                    </div>
+                                )}
+                                {messages.map((message, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1 }}
+                                        className={`mb-2 ${message.type === 'user' ? 'text-right' : 'text-left'}`}
+                                    >
+                                        <span className={`inline-block p-2 rounded-lg ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
+                                            {message.content}
+                                        </span>
+                                    </motion.div>
+                                ))}
+                                {isLoading && <div className="text-center text-white">Loading...</div>}
+                                {error && <div className="text-red-400">{error}</div>}
+                                {messages.length > 0 && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.4 }}
+                                        className="mt-4"
+                                    >
+                                        <p className="text-gray-300 mb-2">You can also ask:</p>
+                                        {predefinedQuestions.map(question => (
+                                            <motion.button
+                                                key={question.id}
+                                                onClick={() => handleQuestionClick(question.id)}
+                                                className="block w-full text-left mb-2 px-3 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition text-white"
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                            >
+                                                {question.text}
+                                            </motion.button>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="p-4 border-t border-gray-700"
+                            >
+                                <form onSubmit={handleSubmit} className="flex">
+                                    <input
+                                        type="text"
+                                        value={inputValue}
+                                        onChange={(e) => setInputValue(e.target.value)}
+                                        placeholder="Type your message..."
+                                        className="flex-grow p-2 border rounded-l-lg bg-gray-800 text-white border-gray-700"
+                                    />
+                                    <motion.button
+                                        type="submit"
+                                        className="bg-blue-600 text-white p-2 rounded-r-lg"
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <PaperAirplaneIcon className="h-5 w-5" />
+                                    </motion.button>
+                                </form>
+                            </motion.div>
                         </div>
-                        <div className="p-4 border-t border-gray-700">
-                            <form onSubmit={handleSubmit} className="flex">
-                                <input
-                                    type="text"
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                    placeholder="Type your message..."
-                                    className="flex-grow p-2 border rounded-l-lg bg-gray-800 text-white border-gray-700"
-                                />
-                                <button type="submit" className="bg-blue-600 text-white p-2 rounded-r-lg">Send</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 };

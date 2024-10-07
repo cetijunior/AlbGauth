@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ShootingStars from '../common/shootingStars';
+import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 // Dummy Data for FAQs
 const faqs = [
@@ -68,7 +69,7 @@ const FAQSection = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg shadow-md overflow-hidden"
+                            className="bg-purple-800 bg-opacity-10 backdrop-blur-md rounded-lg shadow-md overflow-hidden"
                         >
                             <button
                                 className="flex justify-between items-center w-full p-4 text-left text-white"
@@ -86,7 +87,15 @@ const FAQSection = () => {
                                         transition={{ duration: 0.3 }}
                                         className="px-4 pb-4"
                                     >
-                                        <p className="text-gray-300">{faq.answer}</p>
+                                        <motion.p
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ duration: 0.3, delay: 0.1 }}
+                                            className="text-purple-200"
+                                        >
+                                            {faq.answer}
+                                        </motion.p>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -108,13 +117,14 @@ const FAQSection = () => {
                                 key={index}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`p-4 text-left rounded-lg transition duration-300 w-full ${activeIndex === index
-                                    ? 'bg-blue-600 text-white shadow-lg'
-                                    : 'bg-white bg-opacity-10 text-gray-200 hover:bg-blue-500 hover:bg-opacity-20'
+                                className={`w-full flex items-center justify-between text-left p-4 md:p-6 rounded-lg transition-all duration-300 ${activeIndex === index
+                                    ? 'bg-gradient-to-l from-purple-600 to-purple-800 text-white shadow-lg'
+                                    : 'bg-gray-800 bg-opacity-50 text-gray-300 hover:bg-opacity-70'
                                     }`}
                                 onClick={() => setActiveIndex(index)}
                             >
                                 <h3 className="text-lg font-semibold">{faq.question}</h3>
+                                <ChevronRightIcon className="w-5 h-5 inline-block ml-2" />
                             </motion.button>
                         ))}
                     </motion.div>
@@ -133,17 +143,29 @@ const FAQSection = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.3 }}
-                                className="absolute inset-0 p-6 bg-white bg-opacity-10 backdrop-blur-md rounded-xl shadow-lg overflow-y-auto z-20"
+                                className="absolute inset-0 p-6 bg-purple-800 bg-opacity-10 backdrop-blur-md rounded-xl shadow-lg overflow-y-auto z-20"
                             >
-                                <h3 className="text-2xl font-bold text-blue-400 mb-4">{faqs[activeIndex]?.question}</h3>
-                                <p className="text-gray-200 text-lg leading-relaxed">
+                                <motion.h3
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="text-2xl font-bold text-purple-600 mb-4"
+                                >
+                                    {faqs[activeIndex]?.question}
+                                </motion.h3>
+                                <motion.p
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.3, delay: 0.1 }}
+                                    className="text-white text-lg leading-relaxed"
+                                >
                                     {faqs[activeIndex]?.answer.split('\n').map((paragraph, index) => (
                                         <React.Fragment key={index}>
                                             {paragraph}
                                             <br /><br />
                                         </React.Fragment>
                                     ))}
-                                </p>
+                                </motion.p>
                             </motion.div>
                         </AnimatePresence>
                     </motion.div>

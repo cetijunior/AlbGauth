@@ -130,16 +130,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="absolute bottom-4 p-3 bg-gradient-to-r from-blue-900 to-indigo-900 mx-4 rounded-lg"
+                    className="absolute bottom-4 p-3 bg-gradient-to-r border-2 border-violet-900 from-blue-900 to-indigo-900 mx-4 rounded-lg"
                 >
-                    <h3 className="font-bold text-white text-lg">Chrome Extension</h3>
-                    <p className="text-sm text-gray-300 mt-1">
+                    <h3 className="font-bold text-center text-white text-lg">Chrome Extension</h3>
+                    <p className="text-sm text-center text-gray-300 mt-1">
                         Download our Chrome Extension!
                     </p>
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="mt-3 px-5 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold flex items-center hover:bg-blue-600 transition-colors duration-300"
+                        className="mt-3 px-5 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold flex items-center justify-center hover:bg-blue-600 transition-colors duration-300 mx-auto"
                     >
                         <img src="assets/images/chrome-logo.png" alt="Chrome" className="w-5 h-5 mr-2" />
                         Install now

@@ -1,12 +1,16 @@
 // src/components/landing/TestimonialsSection.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/effect-coverflow';
 import ShootingStars from '../common/shootingStars';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 const testimonials = [
     {
@@ -59,8 +63,8 @@ const testimonials = [
     },
 ];
 
-const TestimonialCard = ({ text, author, role, rating }) => (
-    <div className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-xl relative overflow-hidden">
+const TestimonialCard = ({ text, author, role, rating, isActive }) => (
+    <div className={`bg-white bg-opacity-10 backdrop-blur-md rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-xl relative overflow-hidden ${isActive ? 'scale-105 z-10' : 'scale-90 opacity-50'}`}>
         <div className="absolute top-0 left-0 w-12 h-12 bg-purple-500 opacity-20 transform -rotate-45"></div>
         <div className="absolute bottom-0 right-0 w-12 h-12 bg-blue-500 opacity-20 transform rotate-45"></div>
         <div className="flex mb-4">
@@ -77,6 +81,8 @@ const TestimonialCard = ({ text, author, role, rating }) => (
 );
 
 const TestimonialsSection = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
     return (
         <section className="pt-20 py-12 px-4 md:px-20 relative" style={{ background: '#000000' }}>
             <ShootingStars />
@@ -88,8 +94,27 @@ const TestimonialsSection = () => {
                     className="w-full"
                     spaceBetween={20}
                     slidesPerView={3}
-                    pagination={{ clickable: true }}
-                    modules={[Pagination]}
+                    centeredSlides={true}
+                    pagination={{
+                        clickable: true,
+                        el: '.swiper-pagination',
+                        bulletClass: 'swiper-pagination-bullet bg-purple-500',
+                        bulletActiveClass: 'swiper-pagination-bullet-active bg-purple-700',
+                    }}
+                    navigation={{
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    }}
+                    modules={[Pagination, Navigation, EffectCoverflow]}
+                    effect="coverflow"
+                    coverflowEffect={{
+                        rotate: 50,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: false,
+                    }}
+                    onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
                     breakpoints={{
                         320: {
                             slidesPerView: 1,
@@ -103,18 +128,31 @@ const TestimonialsSection = () => {
                             slidesPerView: 3,
                             spaceBetween: 30,
                         },
-                        1280: {
-                            slidesPerView: 4,
-                            spaceBetween: 40,
-                        },
                     }}
                 >
                     {testimonials.map((testimonial, index) => (
                         <SwiperSlide key={index}>
-                            <TestimonialCard {...testimonial} />
+                            <TestimonialCard {...testimonial} isActive={index === activeIndex} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
+                <div className="swiper-navigation-wrapper mt-8 flex items-center justify-center space-x-6">
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="swiper-button-prev !static !w-10 !h-10 !bg-gradient-to-r from-purple-600 to-purple-800 !rounded-full after:!content-[''] flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-purple-500/50"
+                    >
+                        <ChevronLeftIcon className="mr-1 h-3 w-3 text-white" />
+                    </motion.div>
+                    <div className="swiper-pagination !static !w-auto"></div>
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="swiper-button-next !static !w-10 !h-10 !bg-gradient-to-r from-purple-600 to-purple-800 !rounded-full after:!content-[''] flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-purple-500/50"
+                    >
+                        <ChevronRightIcon className="ml-1 h-3 w-3 text-white" />
+                    </motion.div>
+                </div>
             </div>
         </section>
     );

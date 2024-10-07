@@ -14,13 +14,11 @@ const HeroSection = () => {
             style={{ background: '#000000' }}
         >
             <ShootingStars />
-            <div className="ml-16 w-full">
+            <div className="ml-16 w-full flex flex-col justify-center items-center">
                 <h1 className="text-4xl md:text-5xl font-bold mb-2 text-center text-white">
-                    Your AI Homework <span className="text-[#782ecc]">Helper</span>
+                    Your AI Homework <span className="text-[#cb6ce6]">Helper</span>
                 </h1>
-                <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center text-white">
-                    <span className="text-[#9355db]">Zgjidhje</span>.ai
-                </h2>
+                <img className='w-1/6' src='assets/images/Logo.png' alt="logo" />
 
                 <div className="flex w-full justify-center z-10">
                     <QuestionInput inputId="question-input" setCohereAnswer={setCohereAnswer} />

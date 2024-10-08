@@ -8,8 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import UploadSection from '../../components/common/UploadSection';
 import ShootingStars from '../../components/common/shootingStars';
 
-//Fix the advanced buttons functioanlity, improve design and add ocr and llms to manage complex math problems
-
 const CalculatorPage = () => {
     const [input, setInput] = useState('');
     const [result, setResult] = useState('');
@@ -20,7 +18,6 @@ const CalculatorPage = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        // Initialize MathJax
         if (window.MathJax) {
             window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
         }
@@ -34,14 +31,10 @@ const CalculatorPage = () => {
         setLoading(true);
         try {
             if (mode === 'Calculator') {
-                if (isComplexOperation(input)) {
-                    await solveWithCohere(input);
-                } else {
-                    const result = evaluate(input);
-                    setResult(result.toString());
-                    setInput(result.toString());
-                    generateSteps(input, result);
-                }
+                const result = evaluate(input);
+                setResult(result.toString());
+                setInput(result.toString());
+                generateSteps(input, result);
             } else {
                 await solveWithCohere(input);
             }
@@ -51,22 +44,6 @@ const CalculatorPage = () => {
             setSteps([]);
         }
         setLoading(false);
-    };
-
-    const isComplexOperation = (input) => {
-        // Define criteria for complex operations
-        const complexPatterns = [
-            /derivative/i,
-            /integral/i,
-            /limit/i,
-            /solve/i,
-            /equation/i,
-            /system/i,
-            /matrix/i,
-            /vector/i,
-            /\b(sin|cos|tan|log|ln)\b/i
-        ];
-        return complexPatterns.some(pattern => pattern.test(input));
     };
 
     const solveWithCohere = async (input) => {
@@ -242,19 +219,21 @@ const CalculatorPage = () => {
     return (
         <div className="min-h-screen bg-black p-4 sm:p-8 flex flex-col items-center relative">
             <ShootingStars />
-            <div className="w-full mt-24 max-w-4xl relative z-10">
-                <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center text-white">Zgjidhje.AI</h1>
-                <p className="text-gray-300 mb-8 text-center">Instant, step-by-step solutions for any question or subject, exactly when you need them.</p>
+            <div className="w-full max-w-4xl relative z-10">
+                <img src="assets/images/Logo.png" alt="Zgjidhje.AI" className="w-auto h-32 mx-auto mb-4" />
+                <p className="text-gray-600 mb-8 text-center text-2xl italic font-bold leading-relaxed">Calculator</p>
+                {/*  <p className="text-gray-300 mb-8 text-center text-lg font-light leading-relaxed">
+                    <span className="text-blue-400 font-semibold">Instant</span>,
+                    <span className="text-green-400 font-semibold"> step-by-step </span>
+                    solutions for <span className="text-yellow-400">any question</span> or
+                    <span className="text-purple-400"> subject</span>,
+                    <span className="text-red-400 font-semibold"> exactly </span>
+                    when you need them.
+                </p>
+                */}
 
                 <div className="bg-gray-900 bg-opacity-80 rounded-lg shadow-lg p-4 sm:p-6 backdrop-filter backdrop-blur-lg">
-                    <div className="flex justify-end mb-4">
-                        <button
-                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={handleClear}
-                        >
-                            <TrashIcon className="h-5 w-5" />
-                        </button>
-                    </div>
+
 
                     <div className="flex flex-wrap justify-center space-x-2 sm:space-x-4 mb-4">
                         <button
@@ -275,7 +254,7 @@ const CalculatorPage = () => {
                         <>
                             <div className="flex flex-wrap justify-center space-x-2 mb-4">
                                 <button
-                                    className={`px-3 py-1 rounded mb-2 ${buttonSet === 'Basic' ? 'bg-pink-600 text-white' : 'bg-gray-700 text-gray-300'}`}
+                                    className={`px-3 py-1 rounded mb-2 ${buttonSet === 'Basic' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                                     onClick={() => setButtonSet('Basic')}
                                 >
                                     Basic
@@ -283,7 +262,7 @@ const CalculatorPage = () => {
                                 {['Functions', 'ABC', 'Equations'].map((set) => (
                                     <button
                                         key={set}
-                                        className={`px-3 py-1 rounded flex items-center mb-2 ${buttonSet === set ? 'bg-pink-600 text-white' : 'bg-gray-700 text-gray-300'}`}
+                                        className={`px-3 py-1 rounded flex items-center mb-2 ${buttonSet === set ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                                         onClick={() => toggleDropdown(set)}
                                     >
                                         {set}
@@ -301,7 +280,7 @@ const CalculatorPage = () => {
                                     placeholder="Enter your math expression"
                                 />
                                 <button
-                                    className="ml-2 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                                    className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                     onClick={handleBackspace}
                                 >
                                     <BackspaceIcon className="h-5 w-5" />
@@ -329,7 +308,7 @@ const CalculatorPage = () => {
                                     <button
                                         key={index}
                                         className={`font-semibold py-2 px-4 rounded ${['+', '-', '*', '/', '='].includes(btn)
-                                            ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                                            ? 'bg-blue-600 hover:bg-blue-700 text-white'
                                             : 'bg-gray-700 hover:bg-gray-600 text-white'
                                             }`}
                                         onClick={() => handleButtonClick(btn)}
@@ -340,7 +319,7 @@ const CalculatorPage = () => {
                             </div>
 
                             <button
-                                className="mt-4 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded w-full"
+                                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
                                 onClick={handleSolve}
                                 disabled={loading}
                             >
@@ -351,7 +330,7 @@ const CalculatorPage = () => {
                         <div className="mt-4">
                             <UploadSection onFileUpload={handleFileUpload} />
                             <button
-                                className="mt-4 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded w-full"
+                                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
                                 onClick={handleSolve}
                                 disabled={loading}
                             >
@@ -362,22 +341,36 @@ const CalculatorPage = () => {
 
                     {result && (
                         <div className="mt-6">
-                            <h2 className="text-xl font-bold mb-2 text-white">Result:</h2>
-                            <Latex className="text-white">{`${result}`}</Latex>
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-xl font-bold mb-2 text-white">Result:</h2>
+                                <div className="flex justify-end mb-4">
+                                    <button
+                                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={handleClear}
+                                    >
+                                        <TrashIcon className="h-5 w-5" />
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="text-white text-2xl font-bold bg-gray-800 p-4 rounded-lg shadow-md">
+                                <Latex>{`${result}`}</Latex>
+                            </div>
                         </div>
                     )}
 
                     {steps.length > 0 && (
-                        <div className="mt-8 bg-gray-800 shadow-lg rounded-lg p-6">
-                            <h2 className="text-2xl font-bold mb-4 text-white border-b border-gray-700 pb-2">Solution Steps</h2>
-                            <ol className="space-y-4">
+                        <div className="mt-8 bg-gray-900 shadow-lg rounded-lg p-6 border border-gray-700">
+                            <h2 className="text-3xl font-bold mb-6 text-white border-b border-gray-700 pb-3">Solution Steps</h2>
+                            <ol className="space-y-6">
                                 {steps.map((step, index) => (
-                                    <li key={index} className="flex items-start">
-                                        <span className="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center mr-3 font-bold">
+                                    <li key={index} className="flex items-start animate-fadeIn">
+                                        <span className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center mr-4 font-bold text-xl shadow-md">
                                             {index + 1}
                                         </span>
-                                        <div className="bg-gray-700 rounded-lg p-4 flex-grow shadow-sm">
-                                            <Latex className="text-white">{`${step}`}</Latex>
+                                        <div className="bg-gray-800 rounded-lg p-5 flex-grow shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-700">
+                                            <div className="text-white text-xl font-semibold">
+                                                <Latex>{`${step}`}</Latex>
+                                            </div>
                                         </div>
                                     </li>
                                 ))}

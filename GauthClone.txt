@@ -1,0 +1,10 @@
+GauthClone:
+- Logic handling with answer generation
+- Saved items || Local Storage
+	- Make it save current answer too
+	- Make Saved item card show uploaded file too
+
+
+
+- Authentication
+- User DB

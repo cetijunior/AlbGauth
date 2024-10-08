@@ -21,7 +21,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
     const menuItems = [
         { icon: HomeIcon, label: 'Home', path: '/' },
-        { icon: DevicePhoneMobileIcon, label: 'Zgjidhje.ai', path: '/zgjidhje-ai' },
+        { icon: DevicePhoneMobileIcon, label: 'Zgjidhje.ai', path: '/answer' },
         { icon: DocumentTextIcon, label: 'PDF Helper', path: '/pdf-helper' },
         { icon: PencilIcon, label: 'Writing Helper', path: '/writing-helper', hasSubmenu: true },
         { icon: CalculatorIcon, label: 'Calculator', path: '/calculator' },

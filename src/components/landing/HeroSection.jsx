@@ -1,11 +1,15 @@
 // src/components/landing/HeroSection.jsx
-import React, { useState } from 'react';
-import QuestionInput from '../common/QuestionInput';
-import UploadSection from '../common/UploadSection';
+import React from 'react';
+import AIAssistantSection from '../common/AIAssistantSection';
 import ShootingStars from '../common/shootingStars';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
-    const [cohereAnswer, setCohereAnswer] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = (question, file) => {
+        navigate('/answer', { state: { question, file } });
+    };
 
     return (
         <section
@@ -21,14 +25,8 @@ const HeroSection = () => {
                 <img className='w-1/6' src='assets/images/Logo.png' alt="logo" />
 
                 <div className="flex w-full justify-center z-10">
-                    <QuestionInput inputId="question-input" setCohereAnswer={setCohereAnswer} />
+                    <AIAssistantSection onSubmit={handleSubmit} />
                 </div>
-
-                {!cohereAnswer && (
-                    <div className="flex justify-center w-full mt-8 z-10">
-                        <UploadSection />
-                    </div>
-                )}
             </div>
         </section>
     );

@@ -79,7 +79,7 @@ const ChatButton = () => {
     return (
         <>
             <motion.button
-                className="fixed z-50 bottom-6 right-6 bg-violet-700 text-white p-3 rounded-full shadow-lg hover:bg-[#cb6ce6] transition flex items-center"
+                className="fixed z-50 bottom-6 right-6 bg-violet-700 text-white p-3 rounded-full shadow-lg hover:bg-violet-500 transition flex items-center"
                 onClick={() => setIsOpen(true)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

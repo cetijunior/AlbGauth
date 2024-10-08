@@ -12,6 +12,7 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import FindTutorPage from './pages/tutoring/FindTutorPage';
 import LearningPathPage from './pages/learning/LearningPathPage';
 import CalculatorPage from './pages/calculator/CalculatorPage';
+import AnswerPage from './pages/answer/AnswerPage';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -20,16 +21,23 @@ function App() {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Show navbar input when user scrolls past a certain point
-      setShowNavbarInput(window.scrollY > 100);
-    };
+    const heroQuestionInput = document.getElementById('question-input');
 
-    window.addEventListener('scroll', handleScroll);
+    if (heroQuestionInput) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          // Show navbar input when hero question input is not visible
+          setShowNavbarInput(!entry.isIntersecting);
+        },
+        { threshold: 0 }
+      );
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+      observer.observe(heroQuestionInput);
+
+      return () => {
+        observer.unobserve(heroQuestionInput);
+      };
+    }
   }, []);
 
   return (
@@ -59,6 +67,7 @@ function App() {
               <Route path="/tutors" element={<FindTutorPage />} />
               <Route path="/learning-paths" element={<LearningPathPage />} />
               <Route path="/calculator" element={<CalculatorPage />} />
+              <Route path="/answer" element={<AnswerPage />} />
             </Routes>
           </main>
           <Footer />

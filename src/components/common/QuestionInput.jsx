@@ -1,7 +1,8 @@
 // src/components/common/QuestionInput.jsx
 import React, { useState } from 'react';
-import { CalculatorIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { CalculatorIcon, ArrowRightIcon, TrashIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const QuestionInput = ({ inputId }) => {
     const navigate = useNavigate();
@@ -59,10 +60,16 @@ const QuestionInput = ({ inputId }) => {
     };
 
     return (
-        <div className="w-full max-w-lg">
+        <motion.div
+            className="w-full max-w-xl mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
+        >
             <div
                 id={inputId}
-                className="flex items-center w-full border border-gray-700 hover:border-gray-500 rounded-2xl shadow-sm p-2 mb-4 bg-gray-900"
+                className="flex items-center w-full border border-gray-700 hover:border-gray-500 rounded-2xl shadow-sm p-2 bg-gray-900"
             >
                 <input
                     type="text"
@@ -88,9 +95,14 @@ const QuestionInput = ({ inputId }) => {
                 </div>
             </div>
             {isLoading && (
-                <div className="mt-4 text-center">
+                <motion.div
+                    className="mt-4 text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <p className="text-gray-300">Duke përpunuar pyetjen tuaj...</p>
-                </div>
+                </motion.div>
             )}
             {cohereAnswer && !isLoading && (
                 <div className="mt-4 p-4 bg-gray-900 rounded-lg shadow-md border border-gray-700">
@@ -100,9 +112,7 @@ const QuestionInput = ({ inputId }) => {
                                 <p className="text-sm text-gray-300">{question}</p>
                             </div>
                             <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center ml-2 flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                                </svg>
+                                <UserCircleIcon />
                             </div>
                         </div>
                         <div className="flex items-start">
@@ -127,7 +137,7 @@ const QuestionInput = ({ inputId }) => {
                     </div>
                 </div>
             )}
-        </div>
+        </motion.div>
     );
 };
 

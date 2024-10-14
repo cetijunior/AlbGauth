@@ -5,6 +5,9 @@ GauthClone:
 	- Make Saved item card show uploaded file too
 
 
+Cohere AI Answers are not there yet, try mos me i perdor shum.
+history not there yet.
+
 
 - Authentication
 - User DB

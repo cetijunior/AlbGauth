@@ -155,7 +155,7 @@ const ProfileDropdown = () => {
                                 <div>
                                     <motion.a
                                         whileHover={{ x: 5, backgroundColor: "rgba(55, 65, 81, 0.5)" }}
-                                        href="#"
+                                        href="/answer-detail"
                                         className="flex justify-between items-center text-gray-300 rounded-md py-2 px-2 transition-colors duration-200"
                                     >
                                         <span>Search history</span>
